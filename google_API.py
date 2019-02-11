@@ -1,7 +1,9 @@
+#Insert image link
 link = "Link_here"
-
+#Insert project_ID 
+PROJECT_ID = "Project_ID_here"
 gcloud services enable vision.googleapis.com
-export GOOGLE_CLOUD_PROJECT="<PROJECT_ID>"
+export GOOGLE_CLOUD_PROJECT="PROJECT_ID"
 gcloud iam service-accounts create my-vision-sa \
   --display-name "my vision service account"
   gcloud iam service-accounts keys create ~/key.json \
