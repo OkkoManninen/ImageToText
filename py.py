@@ -11,6 +11,8 @@ import optparse
 import csv
 import fnmatch
 import subprocess
+import importlib
+
 
 # ===========================================================================================================
 # Default configuration
@@ -19,6 +21,23 @@ JPG_RESOLUTION_DPI    = 400                     # Default Text files output dire
 TEXT_OUTPUT_DIR       = 'text'                  # Default Text files output directory
 
 RESUME_OCR            = False
+
+tarjoaja = input("google, microsoft, abbyy, tesseract vai kaikki?(g, m, a, t, all):")
+print(tarjoaja)
+if tarjoaja == 'g' or tarjoaja == 'G':
+    print("Paatit kayttaa Googlea")
+elif tarjoaja == 'm' or tarjoaja == 'M':
+    print("Paatit kayttaa Microsoftia")
+elif tarjoaja == 'a' or tarjoaja == 'A':
+    print("Paatit kayttaa Abbya")
+elif tarjoaja == 't' or tarjoaja == 'T':
+    print("Paatit kayttaa Tesseractia")
+elif tarjoaja == 'all' or tarjoaja == 'All':
+    print("Paatit kayttaa kaikkia")
+else:
+    print("Tarkista valintasi!")
+
+
 
 # :\Program Files\gs\gs9.07\
 if os.name == 'nt':
@@ -30,7 +49,7 @@ else:
 
 # ===========================================================================================================
 
-logger = logging. getLogger ('pdf2txt')
+logger = logging. getLogger ('py')
 logger. addHandler (logging. StreamHandler ())
 logger. setLevel (logging. DEBUG)
         
@@ -123,23 +142,23 @@ def main(options, args):
           for filename in fnmatch.filter(filenames, '*.pdf'):
               fname = os.path.join(root, filename)
               out, err = pdf_to_jpg(fname, options.jpgdir, options.dpi)
-              print out, err
+              print (out, err)
     
     # For each JPG files in folder and sub-folders
     for root, dirnames, filenames in os.walk(options.jpgdir):
       for filename in fnmatch.filter(filenames, '*.jpg'):
           fname = os.path.join(root, filename)
           out, err = jpg_to_text(options, fname, options.txtdir)
-          print out, err
+          print (out, err)
     
 def signal_handler(signal, frame):
-    print 'You pressed Ctrl+C!'
+    print ('You pressed Ctrl+C!')
     os._exit(1)
     
 if __name__ == "__main__":
 
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
+    importlib.reload(sys)
+    #sys.setdefaultencoding('utf-8')
     
     signal.signal(signal.SIGINT, signal_handler)
     
@@ -151,4 +170,4 @@ if __name__ == "__main__":
         print("Please specify root directory of PDF input files (-h/--help for help)")
         sys.exit(-1)
         
-    main(options, args)
+main(options, args)
