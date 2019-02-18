@@ -5,3 +5,8 @@
 
 
 #Ylimaaraiset merkit kielletty
+#Seuraavat kommentit kertoo ylhäällä olevien tietojen järjestyksen
+'''
+1. google_key
+2. microsoft_key
+'''
