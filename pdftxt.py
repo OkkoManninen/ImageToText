@@ -26,36 +26,36 @@ google = 0
 microsoft = 0
 tesseract = 0
 abbeyy = 0
-kaikki = 0
+everything = 0
 #===========================================================================================================
-# Asetuskansion arvojen haku (seuraavalla rivilla maaritellaan kyseinen tiedosto)
-path = './asetustiedosto.py'
-asetus = open(path,'r')
-google_key = asetus.readline()
-microsoft_key = asetus.readline()
+# Configuration information
+path = './configurationfile.py'
+tempsetting = open(path,'r')
+google_key = tempsetting.readline()
+microsoft_key = tempsetting.readline()
 
-print("Googlen avain on: " + google_key + " ja Microsoftin avain on: " + microsoft_key)
+print("Google key is: " + google_key + " and Microsoft key is: " + microsoft_key)
 
-asetus.close()
+tempsetting.close()
 
 #===========================================================================================================
-# Kaytettavien palveluiden valinta
-tarjoaja = input("google, microsoft, abbyy, tesseract vai kaikki?(g, m, a, t, all):")
-print(tarjoaja)
-if tarjoaja == 'g' or tarjoaja == 'G':
-    print("Paatit kayttaa Googlea")
-elif tarjoaja == 'm' or tarjoaja == 'M':
-    print("Paatit kayttaa Microsoftia")
-elif tarjoaja == 'a' or tarjoaja == 'A':
-    print("Paatit kayttaa Abbya")
-elif tarjoaja == 't' or tarjoaja == 'T':
-    print("Paatit kayttaa Tesseractia")
+# Selecting services to use
+provider = input("google, microsoft, abbyy, tesseract or everything?(g, m, a, t, all):")
+print(provider)
+if provider == 'g' or provider == 'G':
+    print("You decided to use Google")
+elif provider == 'm' or provider == 'M':
+    print("You decided to use Microsoft")
+elif provider == 'a' or provider == 'A':
+    print("You decided to use Abby")
+elif provider == 't' or provider == 'T':
+    print("You decided to use Tesseract")
     tesseract = 1
-elif tarjoaja == 'all' or tarjoaja == 'All':
-    print("Paatit kayttaa kaikkia")
-    kaikki = 1
+elif provider == 'all' or provider == 'All':
+    print("You decided to use everything")
+    everything = 1
 else:
-    print("Tarkista valintasi!")
+    print("Please check your decision!")
 
 # ===========================================================================================================
 # :\Program Files\gs\gs9.07\
@@ -67,8 +67,8 @@ else:
     TESSERACT_PROG    = '/usr/bin/tesseract'
 
 # ===========================================================================================================
-# Varsinainen koodi
-if tesseract == 1 or kaikki == 1:
+# Main code
+if tesseract == 1 or everything == 1:
 # ===========================================================================================================
     logger = logging. getLogger ('py')
     logger. addHandler (logging. StreamHandler ())
@@ -128,7 +128,6 @@ if tesseract == 1 or kaikki == 1:
                 return "Resume, file exist skipped", ""
         except:
             pass
-        print("Lisaa toiminta")
         return "", "Error"
 
     #PDF TO JPG
@@ -194,6 +193,6 @@ if tesseract == 1 or kaikki == 1:
             print("Please specify root directory of PDF input files (-h/--help for help)")
             sys.exit(-1)
     main(options, args)
-    print("Tesseract on valmis")
+    print("Tesseract is finished")
 # ===========================================================================================================
-print("Tasta seuraava asia")
+print("Next provider")
